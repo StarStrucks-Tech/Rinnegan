@@ -1,0 +1,13 @@
+//api/proto/dummyproto.proto
+syntax = "proto3";
+
+package main;
+ message Another{
+    string branch = 1;
+ }
+message status {
+    int32 id = 1;
+    string name = 2;
+    float salary = 3;
+    Another bro = 4;
+}
