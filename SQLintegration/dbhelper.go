@@ -62,8 +62,8 @@ func (h *DBHelper) getAllRecords(tableName string) error {
 }
 
 func (h *DBHelper) insertRecord(record Record, tableName string) error {
-	insertDymStmt := fmt.Sprintf("INSERT into %s (username, phonenumber, city, address) VALUES($1, $2, $3, $4)", tableName)
-	_, err := h.db.Exec(insertDymStmt, record.Username, record.PhoneNumber, record.City, record.Address)
+	insertStmt := fmt.Sprintf("INSERT INTO %s (username, phonenumber, city, address) VALUES($1, $2, $3, $4)", tableName)
+	_, err := h.db.Exec(insertStmt, record.Username, record.PhoneNumber, record.City, record.Address)
 	return err
 }
 
@@ -73,47 +73,8 @@ func (h *DBHelper) updateRecord(record Record, tableName string) error {
 	return err
 }
 
-func (h *DBHelper) deleteRecord(tableName string, primaryKeyValue string) error {
+func (h *DBHelper) deleteRecord(primaryKeyValue string, tableName string) error {
 	deleteStmt := fmt.Sprintf("DELETE FROM %s WHERE username = $1", tableName)
 	_, err := h.db.Exec(deleteStmt, primaryKeyValue)
 	return err
-}
-
-func main() {
-	helper, err := NewDBHelper()
-	if err != nil {
-		panic(err)
-	}
-	defer helper.Close()
-
-	// CRUD operations demonstration
-	record := Record{Username: "Shashi", PhoneNumber: "96610335556", City: "Munich", Address: "Germany"}
-
-	record.City = "Delhi"
-	err = helper.updateRecord(record, "customers")
-	if err != nil {
-		panic(err)
-	}
-
-	err = helper.deleteRecord("customers", "Mani")
-	if err != nil {
-		panic(err)
-	}
-
-	err = helper.insertRecord(record, "customers")
-	if err != nil {
-		panic(err)
-	}
-
-	err = helper.getAllRecords("customers")
-	if err != nil {
-		panic(err)
-	}
-
-}
-
-func CheckError(err error) {
-	if err != nil {
-		panic(err)
-	}
 }
