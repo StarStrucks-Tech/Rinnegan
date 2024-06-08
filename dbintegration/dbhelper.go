@@ -40,7 +40,8 @@ func (h *DBHelper) Close() {
 }
 
 func (h *DBHelper) getAllRecords(tableName string) error {
-	rows, err := h.db.Query("SELECT * FROM " + tableName)
+	query := fmt.Sprintf(SelectAllRecordsQuery, tableName)
+	rows, err := h.db.Query(query)
 	if err != nil {
 		return err
 	}
@@ -62,19 +63,19 @@ func (h *DBHelper) getAllRecords(tableName string) error {
 }
 
 func (h *DBHelper) insertRecord(record Record, tableName string) error {
-	insertStmt := fmt.Sprintf("INSERT INTO %s (username, phonenumber, city, address) VALUES($1, $2, $3, $4)", tableName)
-	_, err := h.db.Exec(insertStmt, record.Username, record.PhoneNumber, record.City, record.Address)
+	query := fmt.Sprintf(InsertRecordQuery, tableName)
+	_, err := h.db.Exec(query, record.Username, record.PhoneNumber, record.City, record.Address)
 	return err
 }
 
 func (h *DBHelper) updateRecord(record Record, tableName string) error {
-	updateStmt := fmt.Sprintf("UPDATE %s SET city = $1 WHERE username = $2", tableName)
-	_, err := h.db.Exec(updateStmt, record.City, record.Username)
+	query := fmt.Sprintf(UpdateRecordQuery, tableName)
+	_, err := h.db.Exec(query, record.City, record.Username)
 	return err
 }
 
 func (h *DBHelper) deleteRecord(primaryKeyValue string, tableName string) error {
-	deleteStmt := fmt.Sprintf("DELETE FROM %s WHERE username = $1", tableName)
-	_, err := h.db.Exec(deleteStmt, primaryKeyValue)
+	query := fmt.Sprintf(DeleteRecordQuery, tableName)
+	_, err := h.db.Exec(query, primaryKeyValue)
 	return err
 }
