@@ -2,6 +2,8 @@ package main
 
 import (
 	pb "Rinnegan/proto-generated/protos-frontend/frontend"
+	generic "Rinnegan/proto-generated/protos-frontend/generic"
+	frontendOnboarding "Rinnegan/proto-generated/protos-frontend/onboarding"
 	"context"
 	"fmt"
 	"log"
@@ -17,18 +19,18 @@ type frontendServer struct {
 
 func (s *frontendServer) GetEmailVerificationScreen(
 	ctx context.Context,
-	req *pb.GetEmailVerificationScreenRequest) (*pb.GetEmailVerificationScreenResponse, error) {
+	req *generic.EmptyRequest) (*frontendOnboarding.GetEmailVerificationScreenResponse, error) {
 	fmt.Println("The rpc for email verification screen is used")
 	// TODO implement this function for proper handling of the servers
-	return &pb.GetEmailVerificationScreenResponse{
+	return &frontendOnboarding.GetEmailVerificationScreenResponse{
 		Title:    "",
 		SubTitle: "",
 	}, nil
 }
 
-func (s *frontendServer) GetPhoneVerificationScreen(ctx context.Context, req *pb.GetPhoneVerificationScreenRequest) (*pb.GetPhoneVerificationScreenResponse, error) {
+func (s *frontendServer) GetPhoneVerificationScreen(ctx context.Context, req *generic.EmptyRequest) (*frontendOnboarding.GetPhoneVerificationScreenResponse, error) {
 	// TODO implement this function for proper handling of the servers
-	return &pb.GetPhoneVerificationScreenResponse{
+	return &frontendOnboarding.GetPhoneVerificationScreenResponse{
 		Title: "",
 	}, nil
 }
