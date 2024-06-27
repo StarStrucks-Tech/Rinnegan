@@ -4,11 +4,11 @@
 // - protoc             v5.27.0
 // source: protos-frontend/frontend/FrontendService.proto
 
-// Define the package name
-
 package frontend
 
 import (
+	generic "Rinnegan/proto-generated/protos-frontend/generic"
+	onboarding "Rinnegan/proto-generated/protos-frontend/onboarding"
 	context "context"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
@@ -21,10 +21,18 @@ import (
 const _ = grpc.SupportPackageIsVersion8
 
 const (
-	FrontendService_GetPhoneVerificationScreen_FullMethodName = "/frontend.FrontendService/GetPhoneVerificationScreen"
-	FrontendService_TriggerPhoneVerification_FullMethodName   = "/frontend.FrontendService/TriggerPhoneVerification"
-	FrontendService_GetEmailVerificationScreen_FullMethodName = "/frontend.FrontendService/GetEmailVerificationScreen"
-	FrontendService_TriggerEmailVerification_FullMethodName   = "/frontend.FrontendService/TriggerEmailVerification"
+	FrontendService_GetPhoneVerificationScreen_FullMethodName    = "/frontend.FrontendService/GetPhoneVerificationScreen"
+	FrontendService_TriggerPhoneVerification_FullMethodName      = "/frontend.FrontendService/TriggerPhoneVerification"
+	FrontendService_GetPhoneOTPVerificationScreen_FullMethodName = "/frontend.FrontendService/GetPhoneOTPVerificationScreen"
+	FrontendService_TriggerPhoneOTPVerification_FullMethodName   = "/frontend.FrontendService/TriggerPhoneOTPVerification"
+	FrontendService_GetEmailVerificationScreen_FullMethodName    = "/frontend.FrontendService/GetEmailVerificationScreen"
+	FrontendService_TriggerEmailVerification_FullMethodName      = "/frontend.FrontendService/TriggerEmailVerification"
+	FrontendService_GetPanVerificationScreen_FullMethodName      = "/frontend.FrontendService/GetPanVerificationScreen"
+	FrontendService_TriggerPanVerification_FullMethodName        = "/frontend.FrontendService/TriggerPanVerification"
+	FrontendService_GetLivenessCheckScreen_FullMethodName        = "/frontend.FrontendService/GetLivenessCheckScreen"
+	FrontendService_TriggerLivenessCheck_FullMethodName          = "/frontend.FrontendService/TriggerLivenessCheck"
+	FrontendService_GetBiometricConsentScreen_FullMethodName     = "/frontend.FrontendService/GetBiometricConsentScreen"
+	FrontendService_GetOtherConsentsScreen_FullMethodName        = "/frontend.FrontendService/GetOtherConsentsScreen"
 )
 
 // FrontendServiceClient is the client API for FrontendService service.
@@ -34,10 +42,19 @@ const (
 // Define the service
 type FrontendServiceClient interface {
 	// RPC to get the phone verification
-	GetPhoneVerificationScreen(ctx context.Context, in *GetPhoneVerificationScreenRequest, opts ...grpc.CallOption) (*GetPhoneVerificationScreenResponse, error)
-	TriggerPhoneVerification(ctx context.Context, in *TriggerPhoneVerificationRequest, opts ...grpc.CallOption) (*TriggerPhoneVerificationResponse, error)
-	GetEmailVerificationScreen(ctx context.Context, in *GetEmailVerificationScreenRequest, opts ...grpc.CallOption) (*GetEmailVerificationScreenResponse, error)
-	TriggerEmailVerification(ctx context.Context, in *TriggerEmailVerificationRequest, opts ...grpc.CallOption) (*TriggerEmailVerificationResponse, error)
+	GetPhoneVerificationScreen(ctx context.Context, in *generic.EmptyRequest, opts ...grpc.CallOption) (*onboarding.GetPhoneVerificationScreenResponse, error)
+	TriggerPhoneVerification(ctx context.Context, in *onboarding.TriggerPhoneOTPVerificationRequest, opts ...grpc.CallOption) (*onboarding.TriggerPhoneVerificationResponse, error)
+	GetPhoneOTPVerificationScreen(ctx context.Context, in *generic.EmptyRequest, opts ...grpc.CallOption) (*onboarding.GetPhoneOTPVerificationScreenResponse, error)
+	TriggerPhoneOTPVerification(ctx context.Context, in *onboarding.TriggerPhoneOTPVerificationRequest, opts ...grpc.CallOption) (*onboarding.TriggerPhoneOTPVerificationResponse, error)
+	GetEmailVerificationScreen(ctx context.Context, in *generic.EmptyRequest, opts ...grpc.CallOption) (*onboarding.GetEmailVerificationScreenResponse, error)
+	TriggerEmailVerification(ctx context.Context, in *onboarding.TriggerEmailVerificationRequest, opts ...grpc.CallOption) (*onboarding.TriggerEmailVerificationResponse, error)
+	GetPanVerificationScreen(ctx context.Context, in *generic.EmptyRequest, opts ...grpc.CallOption) (*onboarding.GetPanVerificationScreenResponse, error)
+	TriggerPanVerification(ctx context.Context, in *onboarding.TriggerPanVerificationRequest, opts ...grpc.CallOption) (*onboarding.TriggerPanVerificationResponse, error)
+	GetLivenessCheckScreen(ctx context.Context, in *generic.EmptyRequest, opts ...grpc.CallOption) (*onboarding.GetLivenessCheckScreenResponse, error)
+	TriggerLivenessCheck(ctx context.Context, in *onboarding.TriggerLivenessCheckRequest, opts ...grpc.CallOption) (*onboarding.TriggerLivenessCheckResponse, error)
+	// RPC method to get biometric consent
+	GetBiometricConsentScreen(ctx context.Context, in *generic.EmptyRequest, opts ...grpc.CallOption) (*onboarding.GetBiometricConsentScreenResponse, error)
+	GetOtherConsentsScreen(ctx context.Context, in *generic.EmptyRequest, opts ...grpc.CallOption) (*onboarding.GetOtherConsentsScreenResponse, error)
 }
 
 type frontendServiceClient struct {
@@ -48,9 +65,9 @@ func NewFrontendServiceClient(cc grpc.ClientConnInterface) FrontendServiceClient
 	return &frontendServiceClient{cc}
 }
 
-func (c *frontendServiceClient) GetPhoneVerificationScreen(ctx context.Context, in *GetPhoneVerificationScreenRequest, opts ...grpc.CallOption) (*GetPhoneVerificationScreenResponse, error) {
+func (c *frontendServiceClient) GetPhoneVerificationScreen(ctx context.Context, in *generic.EmptyRequest, opts ...grpc.CallOption) (*onboarding.GetPhoneVerificationScreenResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetPhoneVerificationScreenResponse)
+	out := new(onboarding.GetPhoneVerificationScreenResponse)
 	err := c.cc.Invoke(ctx, FrontendService_GetPhoneVerificationScreen_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -58,9 +75,9 @@ func (c *frontendServiceClient) GetPhoneVerificationScreen(ctx context.Context, 
 	return out, nil
 }
 
-func (c *frontendServiceClient) TriggerPhoneVerification(ctx context.Context, in *TriggerPhoneVerificationRequest, opts ...grpc.CallOption) (*TriggerPhoneVerificationResponse, error) {
+func (c *frontendServiceClient) TriggerPhoneVerification(ctx context.Context, in *onboarding.TriggerPhoneOTPVerificationRequest, opts ...grpc.CallOption) (*onboarding.TriggerPhoneVerificationResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(TriggerPhoneVerificationResponse)
+	out := new(onboarding.TriggerPhoneVerificationResponse)
 	err := c.cc.Invoke(ctx, FrontendService_TriggerPhoneVerification_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -68,9 +85,29 @@ func (c *frontendServiceClient) TriggerPhoneVerification(ctx context.Context, in
 	return out, nil
 }
 
-func (c *frontendServiceClient) GetEmailVerificationScreen(ctx context.Context, in *GetEmailVerificationScreenRequest, opts ...grpc.CallOption) (*GetEmailVerificationScreenResponse, error) {
+func (c *frontendServiceClient) GetPhoneOTPVerificationScreen(ctx context.Context, in *generic.EmptyRequest, opts ...grpc.CallOption) (*onboarding.GetPhoneOTPVerificationScreenResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetEmailVerificationScreenResponse)
+	out := new(onboarding.GetPhoneOTPVerificationScreenResponse)
+	err := c.cc.Invoke(ctx, FrontendService_GetPhoneOTPVerificationScreen_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *frontendServiceClient) TriggerPhoneOTPVerification(ctx context.Context, in *onboarding.TriggerPhoneOTPVerificationRequest, opts ...grpc.CallOption) (*onboarding.TriggerPhoneOTPVerificationResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(onboarding.TriggerPhoneOTPVerificationResponse)
+	err := c.cc.Invoke(ctx, FrontendService_TriggerPhoneOTPVerification_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *frontendServiceClient) GetEmailVerificationScreen(ctx context.Context, in *generic.EmptyRequest, opts ...grpc.CallOption) (*onboarding.GetEmailVerificationScreenResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(onboarding.GetEmailVerificationScreenResponse)
 	err := c.cc.Invoke(ctx, FrontendService_GetEmailVerificationScreen_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -78,10 +115,70 @@ func (c *frontendServiceClient) GetEmailVerificationScreen(ctx context.Context, 
 	return out, nil
 }
 
-func (c *frontendServiceClient) TriggerEmailVerification(ctx context.Context, in *TriggerEmailVerificationRequest, opts ...grpc.CallOption) (*TriggerEmailVerificationResponse, error) {
+func (c *frontendServiceClient) TriggerEmailVerification(ctx context.Context, in *onboarding.TriggerEmailVerificationRequest, opts ...grpc.CallOption) (*onboarding.TriggerEmailVerificationResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(TriggerEmailVerificationResponse)
+	out := new(onboarding.TriggerEmailVerificationResponse)
 	err := c.cc.Invoke(ctx, FrontendService_TriggerEmailVerification_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *frontendServiceClient) GetPanVerificationScreen(ctx context.Context, in *generic.EmptyRequest, opts ...grpc.CallOption) (*onboarding.GetPanVerificationScreenResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(onboarding.GetPanVerificationScreenResponse)
+	err := c.cc.Invoke(ctx, FrontendService_GetPanVerificationScreen_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *frontendServiceClient) TriggerPanVerification(ctx context.Context, in *onboarding.TriggerPanVerificationRequest, opts ...grpc.CallOption) (*onboarding.TriggerPanVerificationResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(onboarding.TriggerPanVerificationResponse)
+	err := c.cc.Invoke(ctx, FrontendService_TriggerPanVerification_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *frontendServiceClient) GetLivenessCheckScreen(ctx context.Context, in *generic.EmptyRequest, opts ...grpc.CallOption) (*onboarding.GetLivenessCheckScreenResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(onboarding.GetLivenessCheckScreenResponse)
+	err := c.cc.Invoke(ctx, FrontendService_GetLivenessCheckScreen_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *frontendServiceClient) TriggerLivenessCheck(ctx context.Context, in *onboarding.TriggerLivenessCheckRequest, opts ...grpc.CallOption) (*onboarding.TriggerLivenessCheckResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(onboarding.TriggerLivenessCheckResponse)
+	err := c.cc.Invoke(ctx, FrontendService_TriggerLivenessCheck_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *frontendServiceClient) GetBiometricConsentScreen(ctx context.Context, in *generic.EmptyRequest, opts ...grpc.CallOption) (*onboarding.GetBiometricConsentScreenResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(onboarding.GetBiometricConsentScreenResponse)
+	err := c.cc.Invoke(ctx, FrontendService_GetBiometricConsentScreen_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *frontendServiceClient) GetOtherConsentsScreen(ctx context.Context, in *generic.EmptyRequest, opts ...grpc.CallOption) (*onboarding.GetOtherConsentsScreenResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(onboarding.GetOtherConsentsScreenResponse)
+	err := c.cc.Invoke(ctx, FrontendService_GetOtherConsentsScreen_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -95,10 +192,19 @@ func (c *frontendServiceClient) TriggerEmailVerification(ctx context.Context, in
 // Define the service
 type FrontendServiceServer interface {
 	// RPC to get the phone verification
-	GetPhoneVerificationScreen(context.Context, *GetPhoneVerificationScreenRequest) (*GetPhoneVerificationScreenResponse, error)
-	TriggerPhoneVerification(context.Context, *TriggerPhoneVerificationRequest) (*TriggerPhoneVerificationResponse, error)
-	GetEmailVerificationScreen(context.Context, *GetEmailVerificationScreenRequest) (*GetEmailVerificationScreenResponse, error)
-	TriggerEmailVerification(context.Context, *TriggerEmailVerificationRequest) (*TriggerEmailVerificationResponse, error)
+	GetPhoneVerificationScreen(context.Context, *generic.EmptyRequest) (*onboarding.GetPhoneVerificationScreenResponse, error)
+	TriggerPhoneVerification(context.Context, *onboarding.TriggerPhoneOTPVerificationRequest) (*onboarding.TriggerPhoneVerificationResponse, error)
+	GetPhoneOTPVerificationScreen(context.Context, *generic.EmptyRequest) (*onboarding.GetPhoneOTPVerificationScreenResponse, error)
+	TriggerPhoneOTPVerification(context.Context, *onboarding.TriggerPhoneOTPVerificationRequest) (*onboarding.TriggerPhoneOTPVerificationResponse, error)
+	GetEmailVerificationScreen(context.Context, *generic.EmptyRequest) (*onboarding.GetEmailVerificationScreenResponse, error)
+	TriggerEmailVerification(context.Context, *onboarding.TriggerEmailVerificationRequest) (*onboarding.TriggerEmailVerificationResponse, error)
+	GetPanVerificationScreen(context.Context, *generic.EmptyRequest) (*onboarding.GetPanVerificationScreenResponse, error)
+	TriggerPanVerification(context.Context, *onboarding.TriggerPanVerificationRequest) (*onboarding.TriggerPanVerificationResponse, error)
+	GetLivenessCheckScreen(context.Context, *generic.EmptyRequest) (*onboarding.GetLivenessCheckScreenResponse, error)
+	TriggerLivenessCheck(context.Context, *onboarding.TriggerLivenessCheckRequest) (*onboarding.TriggerLivenessCheckResponse, error)
+	// RPC method to get biometric consent
+	GetBiometricConsentScreen(context.Context, *generic.EmptyRequest) (*onboarding.GetBiometricConsentScreenResponse, error)
+	GetOtherConsentsScreen(context.Context, *generic.EmptyRequest) (*onboarding.GetOtherConsentsScreenResponse, error)
 	mustEmbedUnimplementedFrontendServiceServer()
 }
 
@@ -106,17 +212,41 @@ type FrontendServiceServer interface {
 type UnimplementedFrontendServiceServer struct {
 }
 
-func (UnimplementedFrontendServiceServer) GetPhoneVerificationScreen(context.Context, *GetPhoneVerificationScreenRequest) (*GetPhoneVerificationScreenResponse, error) {
+func (UnimplementedFrontendServiceServer) GetPhoneVerificationScreen(context.Context, *generic.EmptyRequest) (*onboarding.GetPhoneVerificationScreenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPhoneVerificationScreen not implemented")
 }
-func (UnimplementedFrontendServiceServer) TriggerPhoneVerification(context.Context, *TriggerPhoneVerificationRequest) (*TriggerPhoneVerificationResponse, error) {
+func (UnimplementedFrontendServiceServer) TriggerPhoneVerification(context.Context, *onboarding.TriggerPhoneOTPVerificationRequest) (*onboarding.TriggerPhoneVerificationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method TriggerPhoneVerification not implemented")
 }
-func (UnimplementedFrontendServiceServer) GetEmailVerificationScreen(context.Context, *GetEmailVerificationScreenRequest) (*GetEmailVerificationScreenResponse, error) {
+func (UnimplementedFrontendServiceServer) GetPhoneOTPVerificationScreen(context.Context, *generic.EmptyRequest) (*onboarding.GetPhoneOTPVerificationScreenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPhoneOTPVerificationScreen not implemented")
+}
+func (UnimplementedFrontendServiceServer) TriggerPhoneOTPVerification(context.Context, *onboarding.TriggerPhoneOTPVerificationRequest) (*onboarding.TriggerPhoneOTPVerificationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TriggerPhoneOTPVerification not implemented")
+}
+func (UnimplementedFrontendServiceServer) GetEmailVerificationScreen(context.Context, *generic.EmptyRequest) (*onboarding.GetEmailVerificationScreenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetEmailVerificationScreen not implemented")
 }
-func (UnimplementedFrontendServiceServer) TriggerEmailVerification(context.Context, *TriggerEmailVerificationRequest) (*TriggerEmailVerificationResponse, error) {
+func (UnimplementedFrontendServiceServer) TriggerEmailVerification(context.Context, *onboarding.TriggerEmailVerificationRequest) (*onboarding.TriggerEmailVerificationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method TriggerEmailVerification not implemented")
+}
+func (UnimplementedFrontendServiceServer) GetPanVerificationScreen(context.Context, *generic.EmptyRequest) (*onboarding.GetPanVerificationScreenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPanVerificationScreen not implemented")
+}
+func (UnimplementedFrontendServiceServer) TriggerPanVerification(context.Context, *onboarding.TriggerPanVerificationRequest) (*onboarding.TriggerPanVerificationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TriggerPanVerification not implemented")
+}
+func (UnimplementedFrontendServiceServer) GetLivenessCheckScreen(context.Context, *generic.EmptyRequest) (*onboarding.GetLivenessCheckScreenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLivenessCheckScreen not implemented")
+}
+func (UnimplementedFrontendServiceServer) TriggerLivenessCheck(context.Context, *onboarding.TriggerLivenessCheckRequest) (*onboarding.TriggerLivenessCheckResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TriggerLivenessCheck not implemented")
+}
+func (UnimplementedFrontendServiceServer) GetBiometricConsentScreen(context.Context, *generic.EmptyRequest) (*onboarding.GetBiometricConsentScreenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetBiometricConsentScreen not implemented")
+}
+func (UnimplementedFrontendServiceServer) GetOtherConsentsScreen(context.Context, *generic.EmptyRequest) (*onboarding.GetOtherConsentsScreenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOtherConsentsScreen not implemented")
 }
 func (UnimplementedFrontendServiceServer) mustEmbedUnimplementedFrontendServiceServer() {}
 
@@ -132,7 +262,7 @@ func RegisterFrontendServiceServer(s grpc.ServiceRegistrar, srv FrontendServiceS
 }
 
 func _FrontendService_GetPhoneVerificationScreen_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetPhoneVerificationScreenRequest)
+	in := new(generic.EmptyRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -144,13 +274,13 @@ func _FrontendService_GetPhoneVerificationScreen_Handler(srv interface{}, ctx co
 		FullMethod: FrontendService_GetPhoneVerificationScreen_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FrontendServiceServer).GetPhoneVerificationScreen(ctx, req.(*GetPhoneVerificationScreenRequest))
+		return srv.(FrontendServiceServer).GetPhoneVerificationScreen(ctx, req.(*generic.EmptyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _FrontendService_TriggerPhoneVerification_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(TriggerPhoneVerificationRequest)
+	in := new(onboarding.TriggerPhoneOTPVerificationRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -162,13 +292,49 @@ func _FrontendService_TriggerPhoneVerification_Handler(srv interface{}, ctx cont
 		FullMethod: FrontendService_TriggerPhoneVerification_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FrontendServiceServer).TriggerPhoneVerification(ctx, req.(*TriggerPhoneVerificationRequest))
+		return srv.(FrontendServiceServer).TriggerPhoneVerification(ctx, req.(*onboarding.TriggerPhoneOTPVerificationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FrontendService_GetPhoneOTPVerificationScreen_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(generic.EmptyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FrontendServiceServer).GetPhoneOTPVerificationScreen(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FrontendService_GetPhoneOTPVerificationScreen_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FrontendServiceServer).GetPhoneOTPVerificationScreen(ctx, req.(*generic.EmptyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FrontendService_TriggerPhoneOTPVerification_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(onboarding.TriggerPhoneOTPVerificationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FrontendServiceServer).TriggerPhoneOTPVerification(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FrontendService_TriggerPhoneOTPVerification_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FrontendServiceServer).TriggerPhoneOTPVerification(ctx, req.(*onboarding.TriggerPhoneOTPVerificationRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _FrontendService_GetEmailVerificationScreen_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetEmailVerificationScreenRequest)
+	in := new(generic.EmptyRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -180,13 +346,13 @@ func _FrontendService_GetEmailVerificationScreen_Handler(srv interface{}, ctx co
 		FullMethod: FrontendService_GetEmailVerificationScreen_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FrontendServiceServer).GetEmailVerificationScreen(ctx, req.(*GetEmailVerificationScreenRequest))
+		return srv.(FrontendServiceServer).GetEmailVerificationScreen(ctx, req.(*generic.EmptyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _FrontendService_TriggerEmailVerification_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(TriggerEmailVerificationRequest)
+	in := new(onboarding.TriggerEmailVerificationRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -198,7 +364,115 @@ func _FrontendService_TriggerEmailVerification_Handler(srv interface{}, ctx cont
 		FullMethod: FrontendService_TriggerEmailVerification_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FrontendServiceServer).TriggerEmailVerification(ctx, req.(*TriggerEmailVerificationRequest))
+		return srv.(FrontendServiceServer).TriggerEmailVerification(ctx, req.(*onboarding.TriggerEmailVerificationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FrontendService_GetPanVerificationScreen_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(generic.EmptyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FrontendServiceServer).GetPanVerificationScreen(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FrontendService_GetPanVerificationScreen_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FrontendServiceServer).GetPanVerificationScreen(ctx, req.(*generic.EmptyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FrontendService_TriggerPanVerification_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(onboarding.TriggerPanVerificationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FrontendServiceServer).TriggerPanVerification(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FrontendService_TriggerPanVerification_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FrontendServiceServer).TriggerPanVerification(ctx, req.(*onboarding.TriggerPanVerificationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FrontendService_GetLivenessCheckScreen_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(generic.EmptyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FrontendServiceServer).GetLivenessCheckScreen(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FrontendService_GetLivenessCheckScreen_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FrontendServiceServer).GetLivenessCheckScreen(ctx, req.(*generic.EmptyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FrontendService_TriggerLivenessCheck_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(onboarding.TriggerLivenessCheckRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FrontendServiceServer).TriggerLivenessCheck(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FrontendService_TriggerLivenessCheck_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FrontendServiceServer).TriggerLivenessCheck(ctx, req.(*onboarding.TriggerLivenessCheckRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FrontendService_GetBiometricConsentScreen_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(generic.EmptyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FrontendServiceServer).GetBiometricConsentScreen(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FrontendService_GetBiometricConsentScreen_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FrontendServiceServer).GetBiometricConsentScreen(ctx, req.(*generic.EmptyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FrontendService_GetOtherConsentsScreen_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(generic.EmptyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FrontendServiceServer).GetOtherConsentsScreen(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FrontendService_GetOtherConsentsScreen_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FrontendServiceServer).GetOtherConsentsScreen(ctx, req.(*generic.EmptyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -219,12 +493,44 @@ var FrontendService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _FrontendService_TriggerPhoneVerification_Handler,
 		},
 		{
+			MethodName: "GetPhoneOTPVerificationScreen",
+			Handler:    _FrontendService_GetPhoneOTPVerificationScreen_Handler,
+		},
+		{
+			MethodName: "TriggerPhoneOTPVerification",
+			Handler:    _FrontendService_TriggerPhoneOTPVerification_Handler,
+		},
+		{
 			MethodName: "GetEmailVerificationScreen",
 			Handler:    _FrontendService_GetEmailVerificationScreen_Handler,
 		},
 		{
 			MethodName: "TriggerEmailVerification",
 			Handler:    _FrontendService_TriggerEmailVerification_Handler,
+		},
+		{
+			MethodName: "GetPanVerificationScreen",
+			Handler:    _FrontendService_GetPanVerificationScreen_Handler,
+		},
+		{
+			MethodName: "TriggerPanVerification",
+			Handler:    _FrontendService_TriggerPanVerification_Handler,
+		},
+		{
+			MethodName: "GetLivenessCheckScreen",
+			Handler:    _FrontendService_GetLivenessCheckScreen_Handler,
+		},
+		{
+			MethodName: "TriggerLivenessCheck",
+			Handler:    _FrontendService_TriggerLivenessCheck_Handler,
+		},
+		{
+			MethodName: "GetBiometricConsentScreen",
+			Handler:    _FrontendService_GetBiometricConsentScreen_Handler,
+		},
+		{
+			MethodName: "GetOtherConsentsScreen",
+			Handler:    _FrontendService_GetOtherConsentsScreen_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
