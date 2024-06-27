@@ -1,4 +1,4 @@
-module Nishikant/uiproject
+module Nishikant/uiproto
 
 go 1.22.3
 

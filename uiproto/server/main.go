@@ -5,7 +5,7 @@ import (
 	"log"
 	"net"
 
-	pb "Nishikant/uiproject/proto" // Adjust this path based on your actual directory structure and package name
+	pb "Nishikant/uiproto/proto" // Adjust this path based on your actual directory structure and package name
 
 	"google.golang.org/grpc"
 )

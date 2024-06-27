@@ -6,7 +6,7 @@ import (
     "log"
     "net"
 
-    pb "Nishikant/yourproject/proto" // Import generated package
+    pb "Nishikant/textproto/proto" // Import generated package
 
     "google.golang.org/grpc"
 )
