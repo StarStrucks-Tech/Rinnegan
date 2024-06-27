@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "/.";
+
+service TextService {
+  rpc ProcessText(TextRequest) returns (TextResponse);
+}
+
+message TextRequest {
+  string text = 1;
+}
+
+message TextResponse {
+  string processed_text = 1;
+}

@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package uiproject.proto;
+
+option go_package = "uiproject/proto";
+
+message User {
+    string id = 1;
+    string name = 2;
+    int32 age = 3;
+    repeated string emails = 4;
+}
+
+message Address {
+    string street = 1;
+    string city = 2;
+    string country = 3;
+}
+
+message UserProfile {
+    User user = 1;
+    Address address = 2;
+}
+
+message UiRequest {
+    string requestId = 1;
+    UserProfile userProfile = 2;
+}
+
+message UiResponse {
+    string responseId = 1;
+    string message = 2;
+}
+
+service UiService {
+    rpc GetUiResponse (UiRequest) returns (UiResponse);
+}
