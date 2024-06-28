@@ -10,7 +10,7 @@ func main() {
 	record2 := Record{Username: "Sohit", PhoneNumber: "96610335556", City: "Munich", Address: "Antartica"}
 
 	record1.City = "Mumbai"
-	err = helper.updateRecord(record2, "customers")
+	err = helper.updateRecord(record1, "customers")
 	CheckError(err)
 
 	err = helper.deleteRecord("Rohit", "customers")
