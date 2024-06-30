@@ -6,10 +6,9 @@ import (
 	frontendOnboarding "Rinnegan/proto-generated/protos-frontend/onboarding"
 	"context"
 	"fmt"
+	"google.golang.org/grpc"
 	"log"
 	"net"
-
-	"google.golang.org/grpc"
 )
 
 // TODO : move this to the pkg package and use accordingly
