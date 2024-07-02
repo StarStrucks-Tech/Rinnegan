@@ -1,105 +1,89 @@
 package main
 
 import (
-	"database/sql"
+	"Rinnegan/common/database/postgres"
 	"fmt"
 	"time"
-
-	"Rinnegan/common/database/postgres"
-
-	_ "github.com/lib/pq" // Register the postgres driver
 )
 
 func main() {
+	// Configuration
 	config := postgres.Config{
 		Host:     "localhost",
 		Port:     5432,
 		User:     "postgres",
-		Password: "root",
+		Password: "root", // Replace with actual password (consider environment variables)
 		Database: "Kubair",
 	}
 
-	// Create a new PostgresConnector instance
-	connector := postgres.NewPostgresConnector(config)
-
-	// Connect to the database
-	db, err := connector.Connect(config)
+	// Database Manager
+	manager, err := postgres.NewPostgresManager(config)
 	if err != nil {
-		fmt.Println("Error connecting to database:", err)
+		fmt.Println("Error creating database manager:", err)
 		return
 	}
-	defer db.Close() // Close the connection when the function finishes
+	defer manager.Connector.Close() // Close connection when main exits
 
-	fmt.Println("Successfully connected to database!")
-
-	// Read all records from users table
-	rows, err := db.Query("SELECT * FROM users")
+	// Read users
+	users, err := getAllUsers(*manager.Querier)
 	if err != nil {
-		fmt.Println("Error executing query:", err)
+		fmt.Println("Error retrieving users:", err)
 		return
 	}
-	defer rows.Close()
-
-	// Define variables to store user data
-	var id int
-	var username string
-	var email string
-	var createdAt time.Time
-	var updatedAt time.Time
-
-	// Iterate through rows and scan data
-	for rows.Next() {
-		err := rows.Scan(&id, &username, &email, &createdAt, &updatedAt) // Modify based on your table columns
-		if err != nil {
-			fmt.Println("Error scanning row:", err)
-			return
-		}
-		fmt.Printf("User ID: %d, Username: %s, Email: %s, Created at: %s, Modified at: %s\n", id, username, email, createdAt.Format("2006-01-02 15:04:05"), updatedAt.Format("2006-01-02 15:04:05"))
-	}
-
-	if err := rows.Err(); err != nil {
-		fmt.Println("Error iterating rows:", err)
-		return
-	}
-
 	fmt.Println("Successfully retrieved users!")
+	for _, user := range users {
+		fmt.Printf("User ID: %d, Username: %s, Email: %s, Created at: %s, Modified at: %s\n",
+			user.ID, user.Username, user.Email, user.CreatedAt.Format("2006-01-02 15:04:05"), user.UpdatedAt.Format("2006-01-02 15:04:05"))
+	}
 
-	// Example update query (assuming you have an ID to update)
-	userID := 1 // Replace with the actual user ID you want to update
-	newEmail := "updated_newmail@example.com"
-
-	err = updateEmailWithTransaction(db, userID, newEmail)
+	// Update user email (example)
+	userID := 1 // Replace with actual ID
+	newEmail := "updated_email@example.com"
+	err = updateEmail(*manager.TransactionManager, userID, newEmail)
 	if err != nil {
 		fmt.Println("Error updating user email:", err)
 		return
 	}
-
 	fmt.Println("Successfully updated user email!")
+}
 
-	// Read all records from users table
-	rows, err = db.Query("SELECT * FROM users")
+// Define a struct to represent a user
+type User struct {
+	ID        int       `json:"id"`
+	Username  string    `json:"username"`
+	Email     string    `json:"email"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
+}
+
+// GetAllUsers retrieves all users from the database
+func getAllUsers(querier postgres.PostgresQuerier) ([]User, error) {
+	rows, err := querier.ExecuteQuery("SELECT * FROM users")
 	if err != nil {
-		fmt.Println("Error executing query:", err)
-		return
+		return nil, fmt.Errorf("error executing query: %w", err)
 	}
 	defer rows.Close()
 
+	var users []User
 	for rows.Next() {
-		err := rows.Scan(&id, &username, &email, &createdAt, &updatedAt) // Modify based on your table columns
+		var user User
+		err := rows.Scan(&user.ID, &user.Username, &user.Email, &user.CreatedAt, &user.UpdatedAt)
 		if err != nil {
-			fmt.Println("Error scanning row:", err)
-			return
+			return nil, fmt.Errorf("error scanning row: %w", err)
 		}
-		fmt.Printf("User ID: %d, Username: %s, Email: %s, Created at: %s, Modified at: %s\n", id, username, email, createdAt.Format("2006-01-02 15:04:05"), updatedAt.Format("2006-01-02 15:04:05"))
+		users = append(users, user)
 	}
+
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("error iterating rows: %w", err)
+	}
+
+	return users, nil
 }
 
-func updateEmailWithTransaction(db *sql.DB, userID int, newEmail string) error {
-	// Create a PostgresTransactionManager instance
-	transactionManager := postgres.NewPostgresTransactionManager(db)
-
-	// Begin a transaction
-	tx, err := transactionManager.BeginTx()
+// UpdateEmail updates the email address of a user within a transaction
+func updateEmail(txManager postgres.PostgresTransactionManager, userID int, newEmail string) error {
+	tx, err := txManager.BeginTx()
 	if err != nil {
 		return fmt.Errorf("error starting transaction: %w", err)
 	}
@@ -110,7 +94,6 @@ func updateEmailWithTransaction(db *sql.DB, userID int, newEmail string) error {
 		}
 	}()
 
-	// Prepare and execute update statement within the transaction
 	stmt, err := tx.Prepare("UPDATE users SET email = $1 WHERE id = $2")
 	if err != nil {
 		return fmt.Errorf("error preparing update statement: %w", err)
@@ -122,7 +105,6 @@ func updateEmailWithTransaction(db *sql.DB, userID int, newEmail string) error {
 		return fmt.Errorf("error updating user email: %w", err)
 	}
 
-	// Commit the transaction if successful
 	if err := tx.Commit(); err != nil {
 		return fmt.Errorf("error committing transaction: %w", err)
 	}
