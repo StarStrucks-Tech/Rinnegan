@@ -2,9 +2,9 @@
 // versions:
 // 	protoc-gen-go v1.28.1
 // 	protoc        v5.27.0
-// source: protos-frontend/UI/NotificationsConsent.proto
+// source: protos-frontend/ui/NotificationsConsent.proto
 
-package UI
+package ui
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -42,7 +42,7 @@ type NotificationsConsent struct {
 func (x *NotificationsConsent) Reset() {
 	*x = NotificationsConsent{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_protos_frontend_UI_NotificationsConsent_proto_msgTypes[0]
+		mi := &file_protos_frontend_ui_NotificationsConsent_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -55,7 +55,7 @@ func (x *NotificationsConsent) String() string {
 func (*NotificationsConsent) ProtoMessage() {}
 
 func (x *NotificationsConsent) ProtoReflect() protoreflect.Message {
-	mi := &file_protos_frontend_UI_NotificationsConsent_proto_msgTypes[0]
+	mi := &file_protos_frontend_ui_NotificationsConsent_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -68,7 +68,7 @@ func (x *NotificationsConsent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NotificationsConsent.ProtoReflect.Descriptor instead.
 func (*NotificationsConsent) Descriptor() ([]byte, []int) {
-	return file_protos_frontend_UI_NotificationsConsent_proto_rawDescGZIP(), []int{0}
+	return file_protos_frontend_ui_NotificationsConsent_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *NotificationsConsent) GetImage() *Image {
@@ -92,52 +92,52 @@ func (x *NotificationsConsent) GetText() *Text {
 	return nil
 }
 
-var File_protos_frontend_UI_NotificationsConsent_proto protoreflect.FileDescriptor
+var File_protos_frontend_ui_NotificationsConsent_proto protoreflect.FileDescriptor
 
-var file_protos_frontend_UI_NotificationsConsent_proto_rawDesc = []byte{
+var file_protos_frontend_ui_NotificationsConsent_proto_rawDesc = []byte{
 	0x0a, 0x2d, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73, 0x2d, 0x66, 0x72, 0x6f, 0x6e, 0x74, 0x65, 0x6e,
-	0x64, 0x2f, 0x55, 0x49, 0x2f, 0x4e, 0x6f, 0x74, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f,
+	0x64, 0x2f, 0x75, 0x69, 0x2f, 0x4e, 0x6f, 0x74, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f,
 	0x6e, 0x73, 0x43, 0x6f, 0x6e, 0x73, 0x65, 0x6e, 0x74, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12,
-	0x02, 0x55, 0x49, 0x1a, 0x1e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73, 0x2d, 0x66, 0x72, 0x6f, 0x6e,
-	0x74, 0x65, 0x6e, 0x64, 0x2f, 0x55, 0x49, 0x2f, 0x49, 0x6d, 0x61, 0x67, 0x65, 0x2e, 0x70, 0x72,
+	0x02, 0x75, 0x69, 0x1a, 0x1e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73, 0x2d, 0x66, 0x72, 0x6f, 0x6e,
+	0x74, 0x65, 0x6e, 0x64, 0x2f, 0x75, 0x69, 0x2f, 0x49, 0x6d, 0x61, 0x67, 0x65, 0x2e, 0x70, 0x72,
 	0x6f, 0x74, 0x6f, 0x1a, 0x1d, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73, 0x2d, 0x66, 0x72, 0x6f, 0x6e,
-	0x74, 0x65, 0x6e, 0x64, 0x2f, 0x55, 0x49, 0x2f, 0x54, 0x65, 0x78, 0x74, 0x2e, 0x70, 0x72, 0x6f,
+	0x74, 0x65, 0x6e, 0x64, 0x2f, 0x75, 0x69, 0x2f, 0x54, 0x65, 0x78, 0x74, 0x2e, 0x70, 0x72, 0x6f,
 	0x74, 0x6f, 0x22, 0x77, 0x0a, 0x14, 0x4e, 0x6f, 0x74, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69,
 	0x6f, 0x6e, 0x73, 0x43, 0x6f, 0x6e, 0x73, 0x65, 0x6e, 0x74, 0x12, 0x1f, 0x0a, 0x05, 0x69, 0x6d,
-	0x61, 0x67, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x09, 0x2e, 0x55, 0x49, 0x2e, 0x49,
+	0x61, 0x67, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x09, 0x2e, 0x75, 0x69, 0x2e, 0x49,
 	0x6d, 0x61, 0x67, 0x65, 0x52, 0x05, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x12, 0x20, 0x0a, 0x06, 0x68,
-	0x65, 0x61, 0x64, 0x65, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x08, 0x2e, 0x55, 0x49,
+	0x65, 0x61, 0x64, 0x65, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x08, 0x2e, 0x75, 0x69,
 	0x2e, 0x54, 0x65, 0x78, 0x74, 0x52, 0x06, 0x68, 0x65, 0x61, 0x64, 0x65, 0x72, 0x12, 0x1c, 0x0a,
-	0x04, 0x74, 0x65, 0x78, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x08, 0x2e, 0x55, 0x49,
+	0x04, 0x74, 0x65, 0x78, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x08, 0x2e, 0x75, 0x69,
 	0x2e, 0x54, 0x65, 0x78, 0x74, 0x52, 0x04, 0x74, 0x65, 0x78, 0x74, 0x42, 0x2d, 0x5a, 0x2b, 0x52,
 	0x69, 0x6e, 0x6e, 0x65, 0x67, 0x61, 0x6e, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2d, 0x67, 0x65,
 	0x6e, 0x65, 0x72, 0x61, 0x74, 0x65, 0x64, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73, 0x2d, 0x66,
-	0x72, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x64, 0x2f, 0x55, 0x49, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
+	0x72, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x64, 0x2f, 0x75, 0x69, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
 	0x6f, 0x33,
 }
 
 var (
-	file_protos_frontend_UI_NotificationsConsent_proto_rawDescOnce sync.Once
-	file_protos_frontend_UI_NotificationsConsent_proto_rawDescData = file_protos_frontend_UI_NotificationsConsent_proto_rawDesc
+	file_protos_frontend_ui_NotificationsConsent_proto_rawDescOnce sync.Once
+	file_protos_frontend_ui_NotificationsConsent_proto_rawDescData = file_protos_frontend_ui_NotificationsConsent_proto_rawDesc
 )
 
-func file_protos_frontend_UI_NotificationsConsent_proto_rawDescGZIP() []byte {
-	file_protos_frontend_UI_NotificationsConsent_proto_rawDescOnce.Do(func() {
-		file_protos_frontend_UI_NotificationsConsent_proto_rawDescData = protoimpl.X.CompressGZIP(file_protos_frontend_UI_NotificationsConsent_proto_rawDescData)
+func file_protos_frontend_ui_NotificationsConsent_proto_rawDescGZIP() []byte {
+	file_protos_frontend_ui_NotificationsConsent_proto_rawDescOnce.Do(func() {
+		file_protos_frontend_ui_NotificationsConsent_proto_rawDescData = protoimpl.X.CompressGZIP(file_protos_frontend_ui_NotificationsConsent_proto_rawDescData)
 	})
-	return file_protos_frontend_UI_NotificationsConsent_proto_rawDescData
+	return file_protos_frontend_ui_NotificationsConsent_proto_rawDescData
 }
 
-var file_protos_frontend_UI_NotificationsConsent_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file_protos_frontend_UI_NotificationsConsent_proto_goTypes = []interface{}{
-	(*NotificationsConsent)(nil), // 0: UI.NotificationsConsent
-	(*Image)(nil),                // 1: UI.Image
-	(*Text)(nil),                 // 2: UI.Text
+var file_protos_frontend_ui_NotificationsConsent_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_protos_frontend_ui_NotificationsConsent_proto_goTypes = []interface{}{
+	(*NotificationsConsent)(nil), // 0: ui.NotificationsConsent
+	(*Image)(nil),                // 1: ui.Image
+	(*Text)(nil),                 // 2: ui.Text
 }
-var file_protos_frontend_UI_NotificationsConsent_proto_depIdxs = []int32{
-	1, // 0: UI.NotificationsConsent.image:type_name -> UI.Image
-	2, // 1: UI.NotificationsConsent.header:type_name -> UI.Text
-	2, // 2: UI.NotificationsConsent.text:type_name -> UI.Text
+var file_protos_frontend_ui_NotificationsConsent_proto_depIdxs = []int32{
+	1, // 0: ui.NotificationsConsent.image:type_name -> ui.Image
+	2, // 1: ui.NotificationsConsent.header:type_name -> ui.Text
+	2, // 2: ui.NotificationsConsent.text:type_name -> ui.Text
 	3, // [3:3] is the sub-list for method output_type
 	3, // [3:3] is the sub-list for method input_type
 	3, // [3:3] is the sub-list for extension type_name
@@ -145,15 +145,15 @@ var file_protos_frontend_UI_NotificationsConsent_proto_depIdxs = []int32{
 	0, // [0:3] is the sub-list for field type_name
 }
 
-func init() { file_protos_frontend_UI_NotificationsConsent_proto_init() }
-func file_protos_frontend_UI_NotificationsConsent_proto_init() {
-	if File_protos_frontend_UI_NotificationsConsent_proto != nil {
+func init() { file_protos_frontend_ui_NotificationsConsent_proto_init() }
+func file_protos_frontend_ui_NotificationsConsent_proto_init() {
+	if File_protos_frontend_ui_NotificationsConsent_proto != nil {
 		return
 	}
-	file_protos_frontend_UI_Image_proto_init()
-	file_protos_frontend_UI_Text_proto_init()
+	file_protos_frontend_ui_Image_proto_init()
+	file_protos_frontend_ui_Text_proto_init()
 	if !protoimpl.UnsafeEnabled {
-		file_protos_frontend_UI_NotificationsConsent_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_protos_frontend_ui_NotificationsConsent_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*NotificationsConsent); i {
 			case 0:
 				return &v.state
@@ -170,18 +170,18 @@ func file_protos_frontend_UI_NotificationsConsent_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_protos_frontend_UI_NotificationsConsent_proto_rawDesc,
+			RawDescriptor: file_protos_frontend_ui_NotificationsConsent_proto_rawDesc,
 			NumEnums:      0,
 			NumMessages:   1,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_protos_frontend_UI_NotificationsConsent_proto_goTypes,
-		DependencyIndexes: file_protos_frontend_UI_NotificationsConsent_proto_depIdxs,
-		MessageInfos:      file_protos_frontend_UI_NotificationsConsent_proto_msgTypes,
+		GoTypes:           file_protos_frontend_ui_NotificationsConsent_proto_goTypes,
+		DependencyIndexes: file_protos_frontend_ui_NotificationsConsent_proto_depIdxs,
+		MessageInfos:      file_protos_frontend_ui_NotificationsConsent_proto_msgTypes,
 	}.Build()
-	File_protos_frontend_UI_NotificationsConsent_proto = out.File
-	file_protos_frontend_UI_NotificationsConsent_proto_rawDesc = nil
-	file_protos_frontend_UI_NotificationsConsent_proto_goTypes = nil
-	file_protos_frontend_UI_NotificationsConsent_proto_depIdxs = nil
+	File_protos_frontend_ui_NotificationsConsent_proto = out.File
+	file_protos_frontend_ui_NotificationsConsent_proto_rawDesc = nil
+	file_protos_frontend_ui_NotificationsConsent_proto_goTypes = nil
+	file_protos_frontend_ui_NotificationsConsent_proto_depIdxs = nil
 }
