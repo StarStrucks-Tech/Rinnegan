@@ -33,6 +33,7 @@ const (
 	FrontendService_TriggerLivenessCheck_FullMethodName          = "/frontend.FrontendService/TriggerLivenessCheck"
 	FrontendService_GetBiometricConsentScreen_FullMethodName     = "/frontend.FrontendService/GetBiometricConsentScreen"
 	FrontendService_GetOtherConsentsScreen_FullMethodName        = "/frontend.FrontendService/GetOtherConsentsScreen"
+	FrontendService_GetCurrentOnboardingStage_FullMethodName     = "/frontend.FrontendService/GetCurrentOnboardingStage"
 )
 
 // FrontendServiceClient is the client API for FrontendService service.
@@ -41,7 +42,6 @@ const (
 //
 // Define the service
 type FrontendServiceClient interface {
-	// RPC to get the phone verification
 	GetPhoneVerificationScreen(ctx context.Context, in *generic.EmptyRequest, opts ...grpc.CallOption) (*onboarding.GetPhoneVerificationScreenResponse, error)
 	TriggerPhoneVerification(ctx context.Context, in *onboarding.TriggerPhoneOTPVerificationRequest, opts ...grpc.CallOption) (*onboarding.TriggerPhoneVerificationResponse, error)
 	GetPhoneOTPVerificationScreen(ctx context.Context, in *generic.EmptyRequest, opts ...grpc.CallOption) (*onboarding.GetPhoneOTPVerificationScreenResponse, error)
@@ -52,9 +52,9 @@ type FrontendServiceClient interface {
 	TriggerPanVerification(ctx context.Context, in *onboarding.TriggerPanVerificationRequest, opts ...grpc.CallOption) (*onboarding.TriggerPanVerificationResponse, error)
 	GetLivenessCheckScreen(ctx context.Context, in *generic.EmptyRequest, opts ...grpc.CallOption) (*onboarding.GetLivenessCheckScreenResponse, error)
 	TriggerLivenessCheck(ctx context.Context, in *onboarding.TriggerLivenessCheckRequest, opts ...grpc.CallOption) (*onboarding.TriggerLivenessCheckResponse, error)
-	// RPC method to get biometric consent
 	GetBiometricConsentScreen(ctx context.Context, in *generic.EmptyRequest, opts ...grpc.CallOption) (*onboarding.GetBiometricConsentScreenResponse, error)
 	GetOtherConsentsScreen(ctx context.Context, in *generic.EmptyRequest, opts ...grpc.CallOption) (*onboarding.GetOtherConsentsScreenResponse, error)
+	GetCurrentOnboardingStage(ctx context.Context, in *generic.EmptyRequest, opts ...grpc.CallOption) (*onboarding.GetCurrentOnboardingStageResponse, error)
 }
 
 type frontendServiceClient struct {
@@ -185,13 +185,22 @@ func (c *frontendServiceClient) GetOtherConsentsScreen(ctx context.Context, in *
 	return out, nil
 }
 
+func (c *frontendServiceClient) GetCurrentOnboardingStage(ctx context.Context, in *generic.EmptyRequest, opts ...grpc.CallOption) (*onboarding.GetCurrentOnboardingStageResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(onboarding.GetCurrentOnboardingStageResponse)
+	err := c.cc.Invoke(ctx, FrontendService_GetCurrentOnboardingStage_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // FrontendServiceServer is the server API for FrontendService service.
 // All implementations must embed UnimplementedFrontendServiceServer
 // for forward compatibility
 //
 // Define the service
 type FrontendServiceServer interface {
-	// RPC to get the phone verification
 	GetPhoneVerificationScreen(context.Context, *generic.EmptyRequest) (*onboarding.GetPhoneVerificationScreenResponse, error)
 	TriggerPhoneVerification(context.Context, *onboarding.TriggerPhoneOTPVerificationRequest) (*onboarding.TriggerPhoneVerificationResponse, error)
 	GetPhoneOTPVerificationScreen(context.Context, *generic.EmptyRequest) (*onboarding.GetPhoneOTPVerificationScreenResponse, error)
@@ -202,9 +211,9 @@ type FrontendServiceServer interface {
 	TriggerPanVerification(context.Context, *onboarding.TriggerPanVerificationRequest) (*onboarding.TriggerPanVerificationResponse, error)
 	GetLivenessCheckScreen(context.Context, *generic.EmptyRequest) (*onboarding.GetLivenessCheckScreenResponse, error)
 	TriggerLivenessCheck(context.Context, *onboarding.TriggerLivenessCheckRequest) (*onboarding.TriggerLivenessCheckResponse, error)
-	// RPC method to get biometric consent
 	GetBiometricConsentScreen(context.Context, *generic.EmptyRequest) (*onboarding.GetBiometricConsentScreenResponse, error)
 	GetOtherConsentsScreen(context.Context, *generic.EmptyRequest) (*onboarding.GetOtherConsentsScreenResponse, error)
+	GetCurrentOnboardingStage(context.Context, *generic.EmptyRequest) (*onboarding.GetCurrentOnboardingStageResponse, error)
 	mustEmbedUnimplementedFrontendServiceServer()
 }
 
@@ -247,6 +256,9 @@ func (UnimplementedFrontendServiceServer) GetBiometricConsentScreen(context.Cont
 }
 func (UnimplementedFrontendServiceServer) GetOtherConsentsScreen(context.Context, *generic.EmptyRequest) (*onboarding.GetOtherConsentsScreenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOtherConsentsScreen not implemented")
+}
+func (UnimplementedFrontendServiceServer) GetCurrentOnboardingStage(context.Context, *generic.EmptyRequest) (*onboarding.GetCurrentOnboardingStageResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCurrentOnboardingStage not implemented")
 }
 func (UnimplementedFrontendServiceServer) mustEmbedUnimplementedFrontendServiceServer() {}
 
@@ -477,6 +489,24 @@ func _FrontendService_GetOtherConsentsScreen_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _FrontendService_GetCurrentOnboardingStage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(generic.EmptyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FrontendServiceServer).GetCurrentOnboardingStage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FrontendService_GetCurrentOnboardingStage_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FrontendServiceServer).GetCurrentOnboardingStage(ctx, req.(*generic.EmptyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // FrontendService_ServiceDesc is the grpc.ServiceDesc for FrontendService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -531,6 +561,10 @@ var FrontendService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetOtherConsentsScreen",
 			Handler:    _FrontendService_GetOtherConsentsScreen_Handler,
+		},
+		{
+			MethodName: "GetCurrentOnboardingStage",
+			Handler:    _FrontendService_GetCurrentOnboardingStage_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
