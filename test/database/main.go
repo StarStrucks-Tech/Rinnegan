@@ -38,7 +38,7 @@ func main() {
 
 	// Update user email (example)
 	userID := 1 // Replace with actual ID
-	newEmail := "updated_email@example.com"
+	newEmail := "updated_yemail@example.com"
 	err = updateEmail(*manager.TransactionManager, userID, newEmail)
 	if err != nil {
 		fmt.Println("Error updating user email:", err)
