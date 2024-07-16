@@ -2,6 +2,7 @@ package main
 
 import (
 	pb "Rinnegan/proto-generated/onboarding"
+	"context"
 	"fmt"
 	"google.golang.org/grpc"
 	"log"
@@ -12,6 +13,18 @@ type onboardingServer struct {
 	pb.UnimplementedOnboardingServiceServer
 }
 
+func (s *onboardingServer) SendVerificationCode(ctx context.Context, req *pb.EmailVerificationRequest) (*pb.EmailVerificationResponse, error) {
+	// TODO: Implement email sending logic here.
+	log.Printf("Sending verification code to email: %s", req.Email)
+	return &pb.EmailVerificationResponse{Success: true, Message: "Verification code sent"}, nil
+}
+
+// VerifyCode verifies the code sent to the user's email.
+func (s *onboardingServer) VerifyCode(ctx context.Context, req *pb.VerifyCodeRequest) (*pb.VerifyCodeResponse, error) {
+	// TODO: Implement code verification logic here.
+	log.Printf("Verifying code for email: %s", req.Email)
+	return &pb.VerifyCodeResponse{Success: true, Message: "Code verified"}, nil
+}
 func main() {
 	lis, err := net.Listen("tcp", ":8082")
 	if err != nil {
