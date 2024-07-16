@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "tproto/proto";
+
+message ConsentRequest {
+    string user_id = 1;
+    string terms_of_service = 2;
+    bool consent_given = 3;
+}
+
+message ConsentResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+service OnboardingService {
+    rpc GiveConsent(ConsentRequest) returns (ConsentResponse);
+}
