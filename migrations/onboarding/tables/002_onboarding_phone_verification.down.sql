@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS Phone_Verification_Stage;

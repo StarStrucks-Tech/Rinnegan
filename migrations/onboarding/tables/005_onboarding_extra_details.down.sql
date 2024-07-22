@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS Extra_Details_Collection_Stage;

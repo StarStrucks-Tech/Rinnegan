@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS PAN_Verification_Stage;
