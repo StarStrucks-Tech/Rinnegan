@@ -38,7 +38,7 @@ func (s *Server) VerifyAadhar(ctx context.Context, req *onboarding.AadharVerific
 		otpStore[otpTransactionID] = otp
 
 		// Simulate sending OTP (in reality, integrate with an SMS gateway)
-		fmt.Printf("Generated OTP: %s for transaction ID: %s\n", otp, otpTransactionID)
+		fmt.Printf("Generated OTP: %s for transaction ID: %s, linked to phone number: %s\n", otp, otpTransactionID, req.LinkedPhoneNumber)
 
 		return &onboarding.AadharVerificationResponse{
 			Success:          true,
