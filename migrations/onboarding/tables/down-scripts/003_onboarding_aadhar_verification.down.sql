@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS Aadhar_Verification_Stage;
